@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="src/css/style.css">
+    <link rel="icon" type="image/x-icon" href="src/assets/img/favicon.ico?v=2">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kangaroo</title>
+</head>
+
+<body>
+
+<!-- ====== JANELAS (abertas pelo botão "Cadastrar" e pelo botão "Alterar" de cada tela) ====== -->
+
+<dialog id="janelaEstoque">
+<form method="dialog" data-url="/api/movimentacoes" data-sucesso="Movimentação registrada!">
+    <fieldset>
+        <legend>Movimentação de Estoque</legend>
+
+        <label for="est-produto">Produto</label>
+        <select id="est-produto" name="produto_id" required></select>
+
+        <label for="est-tipo">Tipo</label>
+        <select id="est-tipo" name="tipo" required>
+            <option value="Entrada">Entrada</option>
+            <option value="Saída">Saída</option>
+        </select>
+
+        <label for="est-quantidade">Quantidade</label>
+        <input type="number" id="est-quantidade" class="form" name="quantidade" min="1" step="1" required>
+
+        <label for="est-obs">Observação</label>
+        <input type="text" id="est-obs" class="form" name="observacao" maxlength="200">
+    </fieldset>
+    <p class="erro-form" role="alert" hidden></p>
+    <button type="button" class="cancelar" data-fechar>Cancelar</button>
+    <button type="submit">Salvar</button>
+</form>
+</dialog>
+
+<dialog id="janelaProduto">
+<form method="dialog" data-url="/api/produtos" data-sucesso="Produto cadastrado!" data-sucesso-edicao="Produto alterado!">
+    <fieldset>
+        <legend data-novo="Cadastro de Produto" data-editar="Alterar Produto">Cadastro de Produto</legend>
+
+        <label for="prod-nome">Nome</label>
+        <input type="text" id="prod-nome" class="form maiusculo" name="nome" maxlength="100" required>
+
+        <label for="prod-categoria">Categoria</label>
+        <select id="prod-categoria" name="categoria_id" required></select>
+
+        <label for="prod-fornecedor">Fornecedor</label>
+        <select id="prod-fornecedor" name="fornecedor_id" required></select>
+
+        <label for="prod-preco">Preço (R$)</label>
+        <input type="number" id="prod-preco" class="form" name="preco" min="0" step="0.01" placeholder="0,00" required>
+
+        <label for="prod-minimo">Estoque mínimo</label>
+        <input type="number" id="prod-minimo" class="form" name="estoque_minimo" min="0" step="1" value="0" required>
+    </fieldset>
+    <p class="erro-form" role="alert" hidden></p>
+    <button type="button" class="cancelar" data-fechar>Cancelar</button>
+    <button type="submit">Salvar</button>
+</form>
+</dialog>
+
+<dialog id="janelaCategoria">
+<form method="dialog" data-url="/api/categorias" data-sucesso="Categoria cadastrada!" data-sucesso-edicao="Categoria alterada!">
+    <fieldset>
+        <legend data-novo="Cadastro de Categoria" data-editar="Alterar Categoria">Cadastro de Categoria</legend>
+
+        <label for="cat-nome">Nome da Categoria</label>
+        <input type="text" id="cat-nome" class="form maiusculo" name="nome" maxlength="100" required>
+    </fieldset>
+    <p class="erro-form" role="alert" hidden></p>
+    <button type="button" class="cancelar" data-fechar>Cancelar</button>
+    <button type="submit">Salvar</button>
+</form>
+</dialog>
+
+<dialog id="janelaFornecedor">
+<form method="dialog" data-url="/api/fornecedores" data-sucesso="Fornecedor cadastrado!" data-sucesso-edicao="Fornecedor alterado!">
+    <fieldset>
+        <legend data-novo="Cadastro de Fornecedor" data-editar="Alterar Fornecedor">Cadastro de Fornecedor</legend>
+
+        <label for="forn-nome">Nome</label>
+        <input type="text" id="forn-nome" class="form maiusculo" name="nome" maxlength="100" required>
+
+        <label for="forn-doc">CPF/CNPJ</label>
+        <input type="text" id="forn-doc" class="form" name="cpf_cnpj" maxlength="18" inputmode="numeric" placeholder="Apenas números" required>
+
+        <label for="forn-tel">Telefone</label>
+        <input type="tel" id="forn-tel" class="form" name="telefone" maxlength="20" inputmode="numeric" placeholder="Com DDD, apenas números">
+
+        <label for="forn-email">E-mail</label>
+        <input type="email" id="forn-email" class="form maiusculo" name="email" maxlength="100">
+    </fieldset>
+    <p class="erro-form" role="alert" hidden></p>
+    <button type="button" class="cancelar" data-fechar>Cancelar</button>
+    <button type="submit">Salvar</button>
+</form>
+</dialog>
+
+<!-- ====== CABEÇALHO ====== -->
+
+<header>
+    <img src="src/assets/img/logo.png" width="260" height="260" alt="Logo do Software Kangaroo">
+
+    <nav>
+        <button type="button" data-tela="produtos">Produto</button>
+        <button type="button" data-tela="categorias">Categoria</button>
+        <button type="button" data-tela="fornecedores">Fornecedor</button>
+        <button type="button" data-tela="estoque">Estoque</button>
+    </nav>
+</header>
+
+<!-- ====== CONTEÚDO (a tabela muda conforme o botão do menu) ====== -->
+
+<main id="main">
+
+    <h2 id="titulo-tela"></h2>
+
+    <div class="alert" id="alerta" role="alert">
+        <span id="alerta-texto"></span>
+        <button type="button" class="alert-fechar" id="alerta-fechar" aria-label="Fechar alerta">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                <path d="M5 5L19 19M19 5L5 19" />
+            </svg>
+        </button>
+    </div>
+
+    <div class="busca">
+        <input type="search" id="busca" aria-label="Buscar na tabela" autocomplete="off">
+    </div>
+
+    <div class="info">
+        <span id="contagem" aria-live="polite"></span>
+        <span class="legenda" id="legenda" hidden><i></i>Abaixo do estoque mínimo</span>
+    </div>
+
+    <div class="scroll" tabindex="0" aria-label="Tabela">
+        <table>
+            <thead id="cabecalho"></thead>
+            <tbody id="corpo"></tbody>
+        </table>
+        <div id="vazio" class="vazio" hidden></div>
+    </div>
+
+    <div class="rodape-tabela">
+        <button type="button" id="btn-cadastrar" class="btn-cadastrar"></button>
+    </div>
+
+</main>
+
+<div id="toast" role="status"></div>
+
+<footer>
+    <p>© Rafael Monteiro</p>
+</footer>
+
+<script type="module" src="src/js/estoque.js"></script>
+
+</body>
+
+</html>

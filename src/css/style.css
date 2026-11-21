@@ -1,0 +1,533 @@
+:root {
+    /* CORES */
+    --cor-primaria: #787C8F;
+    --cor-secundaria: #9A0B0B;
+    --cor-terciaria: #C2410C;
+    --cor-preto: #11151C;
+    --cor-branco: #FFFFFF;
+    --cor-fundo: #EDE6E3;
+    --cor-botao: #FF8811;
+    --cor-alerta: #9A0B0B;
+    --cor-amarelo: #FACC15;
+    --cor-amarelo-texto: #8A6100;
+    --cor-entrada: #1F6B45;
+
+    /* TIPOGRAFIA */
+    --fonte-logo: 40px;
+    --fonte-titulo: 30px;
+    --fonte-sub-titulo: 20px;
+    --fonte-texto: 16px;
+    --fonte-formulario: 18px;
+
+    /* ESPAÇAMENTO */
+    --espacamento-0: 0px;
+    --espacamento-1: 4px;
+    --espacamento-2: 8px;
+    --espacamento-3: 16px;
+    --espacamento-4: 24px;
+    --espacamento-5: 32px;
+}
+
+/*FONTES*/
+@font-face{
+    font-family: 'Manrope-Regular';
+    src:url(../assets/fonts/Manrope-Regular.ttf);
+}
+
+@font-face{
+    font-family: 'Sora-Bold';
+    src:url(../assets/fonts/Sora-Bold.ttf);
+}
+
+/* LAYOUT GERAL */
+
+body {
+    background-color: var(--cor-fundo);
+    margin: var(--espacamento-0);
+    padding: var(--espacamento-0);
+    text-align: center;
+}
+
+/* LOGO: sempre centralizada, em qualquer largura de tela */
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+header img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+}
+
+nav button {
+    margin: 0;
+}
+
+/* CONTEÚDO PRINCIPAL E TIPOGRAFIA */
+
+main {
+    padding-left: var(--espacamento-3);
+    padding-right: var(--espacamento-3);
+}
+
+h1 {
+    font-family: 'Manrope-Regular';
+    font-size: var(--fonte-logo);
+    color: var(--cor-branco);
+}
+
+p {
+    font-family: 'Manrope-Regular';
+    font-size: var(--fonte-texto);
+    color: var(--cor-secundaria);
+}
+
+main p {
+    margin-top: var(--espacamento-1);
+}
+
+/* ALERTA */
+
+.alert {
+    display: none;
+    font-family: 'Manrope-Regular';
+    font-size: var(--fonte-texto);
+    background-color: var(--cor-alerta);
+    color: var(--cor-branco);
+    padding: var(--espacamento-3);
+    margin: var(--espacamento-3) 0;
+    border-radius: 2px;
+}
+
+.alert.show {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--espacamento-3);
+}
+
+.alert-fechar {
+    background-color: transparent;
+    border: none;
+    border-color: transparent;
+    outline: none;
+    color: var(--cor-branco);
+    margin: var(--espacamento-0);
+    padding: var(--espacamento-1);
+    line-height: 0;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.alert-fechar svg {
+    display: block;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    transition: stroke-width 0.3s;
+}
+
+.alert-fechar:hover {
+    background-color: transparent;
+    transform: rotate(90deg);
+}
+
+.alert-fechar:hover svg {
+    stroke-width: 4;
+}
+
+.alert-fechar:focus-visible {
+    outline: 2px solid var(--cor-branco);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* FORMULÁRIO */
+dialog {
+    background-color: var(--cor-fundo);
+    border: 2px solid var(--cor-preto);
+    box-shadow: 0 0 3px var(--cor-preto);
+    border-radius: 10px;
+}
+
+form {
+    font-family: 'Manrope-Regular';
+    font-size: var(--fonte-formulario);
+    text-align: center;
+}
+
+fieldset {
+    border: 0;
+    text-align: left;
+    display: grid;
+    grid-template-columns: auto minmax(0, 320px);
+    justify-content: center;
+    column-gap: 14px;
+    row-gap: 12px;
+    align-items: center;
+}
+
+legend {
+    font-family: 'Sora-Bold';
+    width: auto;
+    margin: auto;
+}
+
+input,
+select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: var(--espacamento-1) var(--espacamento-2);
+    font-family: 'Manrope-Regular';
+    color: var(--cor-preto);
+    font-size: var(--fonte-texto);
+}
+
+input {
+    outline: none;
+    border-radius: 5px;
+}
+
+input:focus {
+    border: 2px solid var(--cor-primaria);
+    box-shadow: 0 0 3px var(--cor-primaria);
+}
+
+input:user-invalid {
+    border: 1px solid var(--cor-terciaria);
+    box-shadow: 0 0 3px var(--cor-terciaria);
+}
+
+/* BOTÕES */
+
+button {
+    background-color: var(--cor-secundaria);
+    border: 2px solid var(--cor-secundaria);
+    color: var(--cor-branco);
+    margin: var(--espacamento-3);
+    padding: var(--espacamento-1) var(--espacamento-4);
+    border-radius: 5px;
+    font-family: 'Manrope-Regular';
+    font-size: var(--fonte-texto);
+    transition: background-color 0.3s, border-color 0.3s, border-radius 0.3s,
+                transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+button:not(.alert-fechar):hover {
+    border-color: var(--cor-secundaria);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(154, 11, 11, 0.35);
+}
+
+button:focus-visible {
+    outline: 2px solid var(--cor-botao);
+    outline-offset: 2px;
+}
+
+button:not(.alert-fechar):active {
+    transform: translateY(0);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* TOAST */
+
+#toast {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s, visibility 0.5s;
+    font-family: 'Manrope-Regular';
+    font-size: var(--fonte-texto);
+    position: fixed;
+    bottom: var(--espacamento-3);
+    right: var(--espacamento-3);
+    background-color: var(--cor-primaria);
+    color: var(--cor-branco);
+    padding: var(--espacamento-3);
+    border-radius: 8px;
+}
+
+#toast.show {
+    visibility: visible;
+    opacity: 1;
+    animation: fadein 0.5s;
+}
+
+@-webkit-keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: var(--espacamento-3); opacity: 1;}
+}
+
+@keyframes fadein {
+  from {bottom: 0; opacity: 0;}
+  to {bottom: var(--espacamento-3); opacity: 1;}
+}
+
+/* FOOTER */
+
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    width: 100%;
+    background-color: var(--cor-preto);
+    color: var(--cor-branco);
+    font-family: 'Manrope-Regular';
+    padding-top: var(--espacamento-3);
+    padding-bottom: var(--espacamento-3);
+    margin-top: var(--espacamento-5);
+}
+
+footer p {
+    color: var(--cor-branco);
+    padding-left: var(--espacamento-3);
+}
+
+footer address {
+    padding-left: var(--espacamento-3);
+}
+
+/* TÍTULOS DAS SEÇÕES */
+
+h2 {
+    font-family: 'Sora-Bold';
+    font-weight: normal;
+    font-size: var(--fonte-titulo);
+    color: var(--cor-preto);
+}
+
+/* BUSCA E CONTADOR DA TABELA */
+
+.busca {
+    max-width: 520px;
+    margin: var(--espacamento-3) auto var(--espacamento-2);
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--espacamento-3);
+    max-width: 1100px;
+    margin: 0 auto var(--espacamento-2);
+    font-family: 'Manrope-Regular';
+    font-size: 14px;
+    color: var(--cor-preto);
+}
+
+.legenda {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--espacamento-2);
+}
+
+.legenda i {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    background-color: var(--cor-secundaria);
+}
+
+/* TABELA COM SCROLL */
+
+.scroll {
+    max-width: 1100px;
+    max-height: 420px;
+    margin: 0 auto;
+    overflow: auto;
+    background-color: var(--cor-branco);
+    border: 1px solid var(--cor-primaria);
+    border-radius: 10px;
+}
+
+.scroll:focus-visible {
+    outline: 2px solid var(--cor-botao);
+    outline-offset: 2px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Manrope-Regular';
+    font-size: var(--fonte-texto);
+    font-variant-numeric: tabular-nums;
+}
+
+th,
+td {
+    padding: var(--espacamento-2) var(--espacamento-3);
+    text-align: left;
+    white-space: nowrap;
+}
+
+th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: var(--cor-primaria);
+    color: var(--cor-branco);
+    font-family: 'Sora-Bold';
+    font-weight: normal;
+    font-size: 14px;
+}
+
+td {
+    color: var(--cor-preto);
+    border-bottom: 1px solid rgba(120, 124, 143, 0.25);
+}
+
+tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+tbody tr:hover td {
+    background-color: rgba(120, 124, 143, 0.12);
+}
+
+.num {
+    text-align: right;
+}
+
+/* Estoque abaixo do mínimo */
+tr.baixo td {
+    background-color: rgba(154, 11, 11, 0.10);
+}
+
+tr.baixo:hover td {
+    background-color: rgba(154, 11, 11, 0.18);
+}
+
+tr.baixo .est {
+    color: var(--cor-secundaria);
+    font-weight: 700;
+}
+
+.vazio {
+    padding: var(--espacamento-5) var(--espacamento-3);
+    font-family: 'Manrope-Regular';
+    color: var(--cor-preto);
+}
+
+/* Botões de ação dentro da tabela: Alterar (amarelo) e Excluir (vermelho), fundo transparente */
+.acoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: var(--espacamento-2);
+}
+
+.btn-acao {
+    margin: var(--espacamento-0);
+    padding: var(--espacamento-1) var(--espacamento-3);
+    background-color: transparent;
+    font-size: 14px;
+}
+
+/* dentro da tabela os botões não "sobem" no hover (a linha ficaria pulando) */
+.btn-acao:not(.alert-fechar):hover,
+.btn-acao:not(.alert-fechar):active {
+    transform: none;
+    box-shadow: none;
+}
+
+/* ALTERAR: borda amarela; texto âmbar escuro para dar para ler no fundo claro */
+.alterar {
+    border-color: var(--cor-amarelo);
+    color: var(--cor-amarelo-texto);
+}
+
+.alterar:not(.alert-fechar):hover {
+    background-color: var(--cor-amarelo);
+    border-color: var(--cor-amarelo);
+    color: var(--cor-preto);
+}
+
+/* EXCLUIR: borda e texto vermelhos */
+.excluir {
+    border-color: var(--cor-secundaria);
+    color: var(--cor-secundaria);
+}
+
+.excluir:not(.alert-fechar):hover {
+    background-color: var(--cor-secundaria);
+    border-color: var(--cor-secundaria);
+    color: var(--cor-branco);
+}
+
+/* Movimentações: Entrada em verde, Saída em vermelho */
+td.entrada {
+    color: var(--cor-entrada);
+    font-weight: 700;
+}
+
+td.saida {
+    color: var(--cor-secundaria);
+    font-weight: 700;
+}
+
+/* Botão grande de cadastrar, logo abaixo da tabela */
+.rodape-tabela {
+    display: flex;
+    justify-content: center;
+    max-width: 1100px;
+    margin: var(--espacamento-4) auto var(--espacamento-0);
+}
+
+.btn-cadastrar {
+    min-width: 300px;
+    margin: var(--espacamento-0);
+    padding: var(--espacamento-3) var(--espacamento-5);
+    border-radius: 8px;
+    font-family: 'Sora-Bold';
+    font-size: 20px;
+}
+
+/* Botão do menu da tela aberta */
+nav button.ativo,
+nav button.ativo:hover {
+    background-color: var(--cor-preto);
+    border-color: var(--cor-preto);
+}
+
+/* Faz o atributo hidden valer mesmo em elementos que têm display definido */
+[hidden] {
+    display: none !important;
+}
+
+/* Campos que o sistema grava em MAIÚSCULAS (como no terminal) */
+.maiusculo {
+    text-transform: uppercase;
+}
+
+/* JANELAS: erro dentro do formulário e botão Cancelar */
+
+.erro-form {
+    margin: var(--espacamento-2) 0 0;
+    font-size: 14px;
+}
+
+.cancelar {
+    background-color: transparent;
+    color: var(--cor-secundaria);
+}
+
+@media (max-width: 480px) {
+    fieldset { grid-template-columns: 1fr; }
+}
